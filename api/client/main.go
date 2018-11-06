@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"projects/gRPC-rest-api/api/proto"
+	pb "projects/grpc-device-service/api/proto"
 
 	"google.golang.org/grpc"
 )

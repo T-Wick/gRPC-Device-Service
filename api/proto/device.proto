@@ -1,19 +1,32 @@
 syntax = "proto3";
 package pb;
-//import "google/api/annotations.proto";
+import "google/api/annotations.proto";
 
 service DeviceService {
     // List all registered devices
-    rpc GetAllDevices (Empty) returns (Devices) {}
+    rpc GetAllDevices (Empty) returns (Devices) {
+        option (google.api.http) = {
+            get: "/api/v1/devices"
+        };
+    }
 
     // Get a device by ID
-    rpc GetDeviceByID (ID) returns (Device) {}
+    rpc GetDeviceByID (ID) returns (Device) {
+        option (google.api.http) = {
+            get: "/api/v1/devices/{id}"
+        };
+    }
 
     // Update a device's state
     rpc SwitchDevice (UpdateDevice) returns (Device) {}
 
     // Register a new device
-    rpc RegisterDevice (Device) returns (Device) {}
+    rpc RegisterDevice (Device) returns (Device) {
+        option (google.api.http) = {
+            post: "/api/v1/devices"
+            body: "*"
+        };
+    }
 }
 
 message ID {

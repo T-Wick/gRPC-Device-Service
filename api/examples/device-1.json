@@ -1,0 +1,9 @@
+{
+    "id": 1016,
+    "hardware": "HP",
+    "name": "Trece-PC",
+    "location": "Bedroom",
+    "type": "onOff",
+    "unit": "N/A",
+    "state": 200
+}

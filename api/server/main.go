@@ -14,6 +14,7 @@ import (
 
 var (
 	service = &DeviceService{
+		allUsers: map[string]*pb.User{},
 		listOfDevices: &pb.Devices{
 			Device: []*pb.Device{},
 		},
@@ -66,8 +67,14 @@ func main() {
 // DeviceService is a struct that holds a list of
 // devices, specifically a Devices type.
 type DeviceService struct {
+	allUsers      map[string]*pb.User
 	listOfDevices *pb.Devices
 	mapOfDevices  map[int32]*pb.Device
+}
+
+// CreateUser cadds a user to the server
+func (s *DeviceService) CreateUser(ctx context.Context, userReq *pb.CreateUserRequest) (*pb.CreateUserRequest, error) {
+	return nil, nil
 }
 
 // GetAllDevices returns all the devices that are

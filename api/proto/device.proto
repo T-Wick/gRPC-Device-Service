@@ -3,17 +3,24 @@ package pb;
 import "google/api/annotations.proto";
 
 service DeviceService {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserRequest) {
+        option (google.api.http) = {
+            post: "/api/v1/users"
+            body: "*"
+        };
+    }
+
     // List all registered devices
     rpc GetAllDevices (Empty) returns (Devices) {
         option (google.api.http) = {
-            get: "/api/v1/devices"
+            get: "/api/v1/users/{account.name}/devices"
         };
     }
 
     // Get a device by ID
     rpc GetDeviceByID (ID) returns (Device) {
         option (google.api.http) = {
-            get: "/api/v1/devices/{id}"
+            get: "/api/v1/users/{account.name}/devices/{id}"
         };
     }
 
@@ -23,19 +30,34 @@ service DeviceService {
     // Register a new device
     rpc RegisterDevice (Device) returns (Device) {
         option (google.api.http) = {
-            post: "/api/v1/devices"
+            post: "/api/v1/users/{account.name}/devices"
             body: "*"
         };
     }
 }
 
+message CreateUserRequest{
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message User{
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    repeated Device devices = 4;
+}
+
 message ID {
-    int32 id = 1;
+    User account = 1;
+    int32 id = 2;
 };
 
 message UpdateDevice {
-    int32 id = 1;
-    int32 value = 2;
+    User account = 1;
+    int32 id = 2;
+    int32 value = 3;
 };
 
 message Device {
@@ -52,6 +74,7 @@ message Device {
     DeviceType type = 5;
     string unit = 6;
     int32 state = 7;
+    User account = 8;
 };
 
 message Devices {
@@ -59,4 +82,5 @@ message Devices {
 };
 
 message Empty {
+    User account = 1;
 };
